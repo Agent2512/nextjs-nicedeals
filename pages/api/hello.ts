@@ -1,23 +1,26 @@
+import { Partners } from '../../assets/entities/Partners';
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import Databese from '../../assets/database'
+import { Role, Roles } from '../../assets/entities/Roles'
 import { Users } from '../../assets/entities/Users'
+import { Deals } from '../../assets/entities/deals';
+import { Categorys } from '../../assets/entities/Categorys';
+
+interface req extends NextApiRequest {
+  query: {
+    id : string
+  }
+}
 
 
+export default async function handler(req: req, res: NextApiResponse) {
+  // get query from url
 
-export default async function handler(  req: NextApiRequest,  res: NextApiResponse) {
   const database = await Databese()
-  // const entities = database.entityMetadatas
-
-  Users.create({
-    username: 'test',
-    firstName: 'test',
-    lastName: 'test',
-    email: 'test@test.dk',
-    password: 'test'
-  }).save()
 
 
+  let data = await Deals.find()
 
-  res.status(200).json({ name: 'John Doe' })
+  res.status(200).json({ data })
 }
