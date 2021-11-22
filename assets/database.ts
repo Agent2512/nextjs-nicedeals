@@ -1,8 +1,8 @@
 import { Partners } from './entities/Partners';
 import { Users } from './entities/Users';
 import { createConnection, getConnection } from "typeorm";
-import { Role, Roles } from './entities/Roles';
-import { Categorys } from './entities/Categorys';
+import { Role, Roles, setDefaultRoles } from './entities/Roles';
+import { Categorys, setDefaultCategorys } from './entities/Categorys';
 import { Deals } from './entities/deals';
 
 let connectionReadyPromise: Promise<void> | null = null;
@@ -52,39 +52,8 @@ const makeConnection = async () => {
 
 const makeDefaultData = async () => {
     // set default roles
-    await Roles.create({
-        roleName: Role.USER,
-    }).save();
-    await Roles.create({
-        roleName: Role.ADMIN,
-    }).save();
-    await Roles.create({
-        roleName: Role.PARTNER,
-    }).save();
+    setDefaultRoles()
 
     // set default categorys
-    await Categorys.create({
-        name: "Ophold",
-        slug: "ophold",
-    }).save();
-    await Categorys.create({
-        name: "Rejser",
-        slug: "rejser",
-    }).save();
-    await Categorys.create({
-        name: "Mad og vin",
-        slug: "mad-og-vin",
-    }).save();
-    await Categorys.create({
-        name: "Produkter",
-        slug: "produkter",
-    }).save();
-    await Categorys.create({
-        name: "Sidste chance",
-        slug: "sidste-chance",
-    }).save();
-    await Categorys.create({
-        name: "Gavekort",
-        slug: "gavekort",
-    }).save();
+    setDefaultCategorys()
 }

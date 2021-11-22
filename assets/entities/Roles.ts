@@ -21,3 +21,13 @@ export class Roles extends BaseEntity {
     @OneToMany(() => Users, user => user.role)
     user: Users;
 }
+
+export function setDefaultRoles() {
+    const values = Object.values(Role);
+    
+    for (let i = 0; i < values.length; i++) {
+        Roles.create({
+            roleName: values[i]
+        }).save();
+    }
+}

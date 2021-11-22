@@ -1,5 +1,5 @@
 import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
-import { Categorys } from "./Categorys";
+import { Category, Categorys } from "./Categorys";
 import { Partners } from "./Partners";
 
 
@@ -34,9 +34,6 @@ export class Deals extends BaseEntity {
     enddate: Date;
 
     @Column({ type: "int" })
-    partner_id: number;
-
-    @Column({ type: "int" })
     price: number;
 
     @Column({ type: "int" })
@@ -48,12 +45,15 @@ export class Deals extends BaseEntity {
     @Column({ type: "int" })
     units: number;
 
+    @Column({ type: "int" })
+    partner_id: number;
+
     // relations
 
-    @Column({ type: "varchar", length: 60 })
+    @Column({ type: "enum", enum: Category })
     @ManyToOne(() => Categorys, categorys => categorys.deals)
     @JoinColumn({ name: "category" })
-    category: Categorys;
+    category: Category;
 
     @ManyToOne(() => Partners, partners => partners.deals, {
         onDelete: "CASCADE"
