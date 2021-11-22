@@ -1,9 +1,10 @@
 import { Partners } from './entities/Partners';
 import { Users } from './entities/Users';
-import { createConnection, getConnection } from "typeorm";
+import { BaseEntity, createConnection, getConnection } from "typeorm";
 import { Role, Roles, setDefaultRoles } from './entities/Roles';
 import { Categorys, setDefaultCategorys } from './entities/Categorys';
 import { Deals } from './entities/deals';
+import { Newsletter } from './entities/Newsletter';
 
 let connectionReadyPromise: Promise<void> | null = null;
 
@@ -18,7 +19,7 @@ export default async function Databese() {
             }
 
             await makeConnection();
-            makeDefaultData();
+            await makeDefaultData();
         })();
     }
 
@@ -45,15 +46,16 @@ const makeConnection = async () => {
             Roles,
             Partners,
             Categorys,
-            Deals
+            Deals,
+            Newsletter
         ],
     });
 }
 
 const makeDefaultData = async () => {
     // set default roles
-    setDefaultRoles()
+    await setDefaultRoles()
 
     // set default categorys
-    setDefaultCategorys()
+    await setDefaultCategorys()
 }

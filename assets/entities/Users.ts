@@ -1,3 +1,4 @@
+import { Newsletter } from './Newsletter';
 import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Role, Roles } from './Roles';
 
@@ -47,5 +48,4 @@ export class Users extends BaseEntity {
     @ManyToOne(() => Roles, Roles => Roles.user)
     @JoinColumn({ name: "role" })
     role: Role;
-
 }

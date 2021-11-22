@@ -28,13 +28,15 @@ export class Categorys extends BaseEntity {
     deals: Deals[];
 }
 
-export function setDefaultCategorys() {
+export async function setDefaultCategorys() {
     const values = Object.values(Category);
 
     for (let i = 0; i < values.length; i++) {
-        Categorys.create({
-            name: values[i],
-            slug: values[i].replaceAll(' ', '-').toLowerCase()
+        const value = values[i];
+
+        await Categorys.create({
+            name: value,
+            slug: value.toString().toLowerCase().replace(' ', '-'),
         }).save();
     }
 }

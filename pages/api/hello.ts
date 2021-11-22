@@ -20,7 +20,7 @@ export default async function handler(req: req, res: NextApiResponse) {
   const database = await Databese()
 
 
-  let data = await Deals.find()
+  let data = await Users.find()
 
   res.status(200).json({ data })
 }

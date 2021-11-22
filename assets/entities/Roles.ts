@@ -22,11 +22,11 @@ export class Roles extends BaseEntity {
     user: Users;
 }
 
-export function setDefaultRoles() {
+export async function setDefaultRoles() {
     const values = Object.values(Role);
     
     for (let i = 0; i < values.length; i++) {
-        Roles.create({
+        await Roles.create({
             roleName: values[i]
         }).save();
     }
