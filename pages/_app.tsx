@@ -1,7 +1,7 @@
 import { AppProps } from 'next/app'
 import Script from 'next/script';
 // import style
-import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap/dist/css/bootstrap.css'
 import '../styles/index.scss'
 
 function MyApp({ Component, pageProps }: AppProps) {

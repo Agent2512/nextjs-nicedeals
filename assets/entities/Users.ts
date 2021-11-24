@@ -1,5 +1,4 @@
-import { Newsletter } from './Newsletter';
-import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Role, Roles } from './Roles';
 
 
@@ -11,19 +10,19 @@ export class Users extends BaseEntity {
     // front-end info
 
     @Column({ type: "varchar", length: 60 })
-    username!: string;
+    username: string;
 
     @Column({ type: "varchar", length: 60 })
-    firstName!: string;
+    firstName: string;
 
     @Column({ type: "varchar", length: 60 })
-    lastName!: string;
+    lastName: string;
 
-    @Column({ type: "varchar", length: 60, unique: false })
-    email!: string;
+    @Column({ type: "varchar", length: 60, unique: true })
+    email: string;
 
     @Column({ type: "varchar", length: 255 })
-    password!: string;
+    password: string;
 
     // back-end info
 
