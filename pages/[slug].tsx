@@ -1,10 +1,11 @@
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
+import { Category } from "../assets/entities/Categorys";
 import Layout from "../component/layout"
 
 import Home from './index';
 
 interface Props {
-    
+
 }
 
 const Slug = ({ }: Props) => {
@@ -16,12 +17,26 @@ const Slug = ({ }: Props) => {
 export default Slug
 
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const slug = context.params?.slug;
+
+export const getStaticPaths: GetStaticPaths = async () => {
+    const slugs = Object.values(Category).map(slug => 
+        slug.toString().toLowerCase().replace(/\s/g, '-')
+    ).map(slug => ({ params: { slug } }))
+    
 
     return {
-        props: {
-
-        }
+        paths: slugs,
+        fallback: false
     }
+}
+
+export const getStaticProps : GetStaticProps = async ({ params }) => {
+    
+
+
+        return {
+            props: {
+                slug: params?.slug
+            }
+        }
 }

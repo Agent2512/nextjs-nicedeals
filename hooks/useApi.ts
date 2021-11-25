@@ -1,4 +1,6 @@
-
+/**
+ *  can be used in backend
+ */
 export async function useApi<T>(uri:string, options?:RequestInit) {
     const fetchData = await fetch(uri,options)
     const data = await fetchData.json()
