@@ -19,9 +19,6 @@ const Header = () => {
 
                     <ul className="nav">
                         <li className="nav-item">
-                            <a className="nav-link text-white" href="#">Tilmeld nyhedsbrev</a>
-                        </li>
-                        <li className="nav-item">
                             <a className="nav-link text-white" href="http://localhost/code/nicedeals/opret-profil">Opret profil</a>
                         </li>
                         <li className="nav-item">

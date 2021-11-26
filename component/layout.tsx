@@ -4,6 +4,8 @@ import NewsletterSub from "./newsletterSub"
 
 interface Props {
     children: React.ReactNode
+    noNewsletterSub?: true
+    
 }
 
 const Layout = (props: Props) => {
@@ -13,7 +15,9 @@ const Layout = (props: Props) => {
         <div id="Layout">
             <Header />
             {props.children}
-            <NewsletterSub/>
+
+            {props.noNewsletterSub ? null : <NewsletterSub />}
+
             <Footer />
         </div>
     )

@@ -34,10 +34,6 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
     req.session.user = user;
     await req.session.save();
 
-
-
-
-
     res.status(200).json({
         message: "User logged in successfully",
         success: true,

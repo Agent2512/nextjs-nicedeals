@@ -10,7 +10,6 @@ export const userSessionOptions: IronSessionOptions = {
     cookieOptions: {
         httpOnly: true,
         sameSite: true,
-
     }
 }
 
