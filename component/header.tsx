@@ -19,10 +19,14 @@ const Header = () => {
 
                     <ul className="nav">
                         <li className="nav-item">
-                            <a className="nav-link text-white" href="http://localhost/code/nicedeals/opret-profil">Opret profil</a>
+                            <Link href="/signup">
+                                <a className="nav-link text-white">Opret profil</a>
+                            </Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link text-white" href="http://localhost/code/nicedeals/login">Log ind</a>
+                            <Link href="/login">
+                                <a className="nav-link text-white">Log ind</a>
+                            </Link>
                         </li>
                         <li className="nav-item d-flex align-items-center">
                             <a className="nav-link text-white" href="#">

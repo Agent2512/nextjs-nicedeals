@@ -4,7 +4,12 @@ import { withIronSessionApiRoute } from 'iron-session/next';
 
 export default withIronSessionApiRoute(loginRoute, userSessionOptions);
 
-async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
+export interface loginRouteRes {
+    message: string;
+    success: boolean;
+}
+
+async function loginRoute(req: NextApiRequest, res: NextApiResponse<loginRouteRes>) {
     // most be a post request
     if (req.method !== 'POST') {
         res.status(405).end();
@@ -37,7 +42,6 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
     res.status(200).json({
         message: "User logged in successfully",
         success: true,
-        user: user
     });
     return;
 }

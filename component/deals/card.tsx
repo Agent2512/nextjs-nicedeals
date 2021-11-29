@@ -4,8 +4,6 @@ import Image from 'next/image';
 const Card = () => {
 
 
-
-
     return (
         <div className="card h-100 shadow">
             <Link href="http://localhost/code/nicedeals/deals/Deal-til-test-af-billeder" >

@@ -10,9 +10,9 @@ export const userSessionOptions: IronSessionOptions = {
     cookieOptions: {
         httpOnly: true,
         sameSite: true,
+        secure: process.env.NODE_ENV === 'production'
     }
 }
-
 
 declare module 'iron-session' {
     interface IronSessionData {
@@ -20,10 +20,7 @@ declare module 'iron-session' {
     }
 }
 
-
 export default class UserControl extends BaseControl {
-
-
     private hachPassword(password: string) {
         return hashSync(password, 10);
     }
@@ -78,5 +75,3 @@ export default class UserControl extends BaseControl {
         return user
     }
 }
-
-// export const login = UserControl.prototype.login;

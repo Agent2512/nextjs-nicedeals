@@ -27,7 +27,7 @@ const Footer = () => {
                     <div className="col-3">
                         <h4 className="text-white">Bliv partner</h4>
                         <p className="mb-0"><a href="http://localhost/code/nicedeals/faa-din-virksomhed-paa-nicedeals" className="text-white text-decoration-none">Få din virksomhed på Nicedeals</a></p>
-                        <p className="mb-0"><a href="http://localhost/code/nicedeals/partner-center" className="text-white text-decoration-none">Partner-center</a></p>
+                        {/* <p className="mb-0"><a href="http://localhost/code/nicedeals/partner-center" className="text-white text-decoration-none">Partner-center</a></p> */}
                     </div>
                 </div>
             </div>

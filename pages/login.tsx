@@ -1,3 +1,4 @@
+import Link from "next/link";
 import LoginForm from "../component/forms/loginForm";
 import Layout from "../component/layout";
 
@@ -19,8 +20,6 @@ const Login = () => {
                 </div>
             </div>
 
-
-
             <div className="container-fluid py-5">
                 <div className="row">
                     <div className="col-6 offset-md-3">
@@ -31,13 +30,14 @@ const Login = () => {
                             og få de bedste tilbud tilpasset til dig og dine ønsker
                         </p>
 
-                        <a className="btn btn-primary mt-4 w-100" href="http://localhost/code/nicedeals/opret-profil">
+                        <Link href="/signup" >
+                        <a className="btn btn-primary mt-4 w-100">
                             Opret en Nicedeals profil
                         </a>
+                        </Link>
                     </div>
                 </div>
             </div>
-
         </Layout>
     )
 }

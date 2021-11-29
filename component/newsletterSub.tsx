@@ -16,7 +16,7 @@ const NewsletterSub = () => {
 
 
                     <div className="d-flex justify-content-center py-3">
-                        <form action="http://localhost/code/nicedeals/users/newsletter_subscription/home" className="w-100 d-flex" method="post" acceptCharset="utf-8">
+                        <form action="http://localhost/code/nicedeals/users/newsletter_subscription/home" className="w-100 d-flex justify-content-center" method="post" acceptCharset="utf-8">
                             <div className="form-group">
                                 <input type="text" name="name" defaultValue="" className="form-control" placeholder="Dit navn" />
                             </div>
