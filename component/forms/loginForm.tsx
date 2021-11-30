@@ -3,14 +3,14 @@ import { useForm } from "react-hook-form";
 import { useApi } from "../../hooks/useApi";
 import { loginRouteRes } from "../../pages/api/user/login";
 
-interface FormData {
+export interface LoginFormData {
     email: string,
     password: string
 }
 
 const LoginForm = () => {
     const router = useRouter();
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+    const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
         mode: "onSubmit",
         reValidateMode: "onSubmit",
         defaultValues: {
@@ -19,7 +19,7 @@ const LoginForm = () => {
         },
     })
 
-    const onSubmit = (data: FormData) => {
+    const onSubmit = (data: LoginFormData) => {
         useApi<loginRouteRes>("/api/user/login", {
             method: "POST",
             body: JSON.stringify(data),

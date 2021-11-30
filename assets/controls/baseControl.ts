@@ -3,7 +3,7 @@ import Databese from "../database";
 export class BaseControl {
     dbcheck: boolean = false;
 
-    public async runDB() {
+    protected async runDB() {
         if (this.dbcheck == false) {
             await Databese()
             this.dbcheck = true

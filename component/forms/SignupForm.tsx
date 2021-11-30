@@ -1,6 +1,9 @@
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import { useApi } from "../../hooks/useApi";
+import { signupRouteRes } from "../../pages/api/user/signup";
 
-interface FormData {
+export interface SignupFormData {
     firstName: string;
     lastName: string;
     acceptNewsletter: boolean;
@@ -13,9 +16,11 @@ interface FormData {
 
 
 const SignupForm = () => {
-    const { register, handleSubmit, formState: { errors }, watch } = useForm<FormData>({
+    const router = useRouter();
+    const { register, handleSubmit, formState: { errors }, watch } = useForm<SignupFormData>({
         mode: "onSubmit",
         reValidateMode: "onSubmit",
+
         defaultValues: {
             firstName: "",
             lastName: "",
@@ -28,8 +33,22 @@ const SignupForm = () => {
         }
     });
 
-    const onSubmit = (data: FormData) => {
-        console.log(data);
+    const onSubmit = (data: SignupFormData) => {
+        useApi<signupRouteRes>("/api/user/signup", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(res => {
+            if (res.success) {
+                router.push("/login");
+            }
+            else {
+                console.log(res.message);
+                
+            }
+        })
     }
 
     return (
