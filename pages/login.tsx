@@ -1,6 +1,6 @@
 import Link from "next/link";
 import LoginForm from "../component/forms/loginForm";
-import Layout from "../component/layout";
+import Layout from "../component/layout/layout";
 
 
 

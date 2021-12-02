@@ -1,24 +1,16 @@
 import { hashSync, compareSync } from "bcrypt";
-import { IronSessionOptions } from "iron-session";
 import { Users } from "../entities/Users";
 import { BaseControl } from "./baseControl";
+import { SignJWT, jwtVerify, JWTVerifyResult } from "jose";
+import { SetOption } from "cookies";
 
-export const userSessionOptions: IronSessionOptions = {
-    cookieName: 'user',
-    password: 'd=)bZcxKas#o8_b4FrcNdGT=f}KXQQh@',
-
-    cookieOptions: {
-        httpOnly: true,
-        sameSite: true,
-        secure: process.env.NODE_ENV === 'production'
-    }
+export const userTokenCookieOpts: SetOption = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 1000 * 60 * 60 * 2
 }
 
-declare module 'iron-session' {
-    interface IronSessionData {
-        user?: Users
-    }
-}
 
 export default class UserControl extends BaseControl {
     private hachPassword(password: string) {
@@ -27,6 +19,21 @@ export default class UserControl extends BaseControl {
 
     private validatePassword(password: string, hash: string) {
         return compareSync(password, hash);
+    }
+
+    public async createJWT(user: Users) {
+        return await new SignJWT({
+            ...user,
+        })
+            .setProtectedHeader({ alg: 'HS512' })
+            .setJti(user.id.toString())
+            .setIssuedAt()
+            .setExpirationTime('2h')
+            .sign(new TextEncoder().encode(process.env.JWT_SECRET || '123456'))
+    }
+
+    public async verifyJWT(token: string) {
+        return await jwtVerify(token, new TextEncoder().encode(process.env.JWT_SECRET || '123456')).catch(() => false) as JWTVerifyResult | false
     }
 
     public async makeUser(username: string, firstName: string, lastName: string, email: string, password: string) {
@@ -39,11 +46,7 @@ export default class UserControl extends BaseControl {
         user.email = email;
         user.password = this.hachPassword(password);
 
-        try {
-            return await user.save()
-        } catch {
-            return false
-        }
+        return await user.save().catch(() => false) as Users | false
     }
 
     public async getUser_by_id(id: number) {

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { useApi } from "../../hooks/useApi";
-import { signupRouteRes } from "../../pages/api/user/signup";
+import { userSignupRouteRes } from "../../pages/api/user/signup";
 
 export interface SignupFormData {
     firstName: string;
@@ -34,7 +34,7 @@ const SignupForm = () => {
     });
 
     const onSubmit = (data: SignupFormData) => {
-        useApi<signupRouteRes>("/api/user/signup", {
+        useApi<userSignupRouteRes>("/api/user/signup", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {

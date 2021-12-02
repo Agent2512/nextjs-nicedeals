@@ -1,6 +1,6 @@
 import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next";
 import { Category } from "../assets/entities/Categorys";
-import Layout from "../component/layout"
+import Layout from "../component/layout/layout"
 
 import Home from './index';
 

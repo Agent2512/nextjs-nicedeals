@@ -5,7 +5,6 @@ import NewsletterSub from "./newsletterSub"
 interface Props {
     children: React.ReactNode
     noNewsletterSub?: true
-    
 }
 
 const Layout = (props: Props) => {

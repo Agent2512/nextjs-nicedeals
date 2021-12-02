@@ -1,5 +1,5 @@
 import SignupForm from "../component/forms/SignupForm"
-import Layout from "../component/layout"
+import Layout from "../component/layout/layout"
 
 
 const Signup = () => {

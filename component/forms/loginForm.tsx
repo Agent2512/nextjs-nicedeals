@@ -1,7 +1,7 @@
 import { useRouter } from "next/dist/client/router";
 import { useForm } from "react-hook-form";
 import { useApi } from "../../hooks/useApi";
-import { loginRouteRes } from "../../pages/api/user/login";
+import { userLoginRouteRes } from "../../pages/api/user/login";
 
 export interface LoginFormData {
     email: string,
@@ -20,7 +20,7 @@ const LoginForm = () => {
     })
 
     const onSubmit = (data: LoginFormData) => {
-        useApi<loginRouteRes>("/api/user/login", {
+        useApi<userLoginRouteRes>("/api/user/login", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
@@ -28,7 +28,7 @@ const LoginForm = () => {
             }
         }).then((res) => {
             if (res.success) {
-                router.push("/")
+                router.push("/dashboard")
             }
         })
     };

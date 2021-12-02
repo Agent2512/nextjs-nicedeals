@@ -1,5 +1,5 @@
 import Card from "../component/deals/card"
-import Layout from "../component/layout"
+import Layout from "../component/layout/layout"
 
 interface Props {
   slug?: string

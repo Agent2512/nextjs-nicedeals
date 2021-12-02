@@ -1,3 +1,4 @@
+import NewsletterSubForm from "../forms/newsletterSubForm";
 
 const NewsletterSub = () => {
 
@@ -15,16 +16,8 @@ const NewsletterSub = () => {
                     </div>
 
 
-                    <div className="d-flex justify-content-center py-3">
-                        <form action="http://localhost/code/nicedeals/users/newsletter_subscription/home" className="w-100 d-flex justify-content-center" method="post" acceptCharset="utf-8">
-                            <div className="form-group">
-                                <input type="text" name="name" defaultValue="" className="form-control" placeholder="Dit navn" />
-                            </div>
-                            <div className="form-group mx-3">
-                                <input type="text" name="email" defaultValue="" className="form-control" placeholder="Din email" />
-                            </div>
-                            <input type="submit" name="submit" value="Tilmeld" className="btn btn-primary text-uppercase"/>
-                        </form>
+                    <div className="d-flex justify-content-center align-items-center py-3 flex-column">
+                        <NewsletterSubForm />
                     </div>
 
 

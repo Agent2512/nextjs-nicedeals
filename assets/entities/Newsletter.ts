@@ -26,5 +26,5 @@ export class Newsletter extends BaseEntity {
     @Column({ type: "int", nullable: true, name: "user_id", default: null })
     @OneToOne(() => Users, { onDelete: "CASCADE" })
     @JoinColumn({ name: "user_id" })
-    user: Users;
+    user: Users | null;
 }

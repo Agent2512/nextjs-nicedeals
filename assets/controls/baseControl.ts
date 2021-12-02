@@ -1,7 +1,7 @@
 import Databese from "../database";
 
 export class BaseControl {
-    dbcheck: boolean = false;
+    protected dbcheck: boolean = false;
 
     protected async runDB() {
         if (this.dbcheck == false) {

@@ -2,13 +2,14 @@ import { SignupFormData } from './../../../component/forms/SignupForm';
 import { NextApiRequest, NextApiResponse } from "next";
 import UserControl from '../../../assets/controls/userControl';
 import { object, string, boolean } from "yup";
+import NewsletterControl from '../../../assets/controls/newsletterControl';
 
-export interface signupRouteRes {
+export interface userSignupRouteRes {
     message: string;
     success: boolean;
 }
 
-export default async function signupRoute(req: NextApiRequest, res: NextApiResponse<signupRouteRes>) {
+export default async function signupRoute(req: NextApiRequest, res: NextApiResponse<userSignupRouteRes>) {
     // only from signup page
     if (req.headers.referer === undefined || req.headers.referer.indexOf('/signup') === -1) {
         res.status(403).end();
@@ -32,7 +33,7 @@ export default async function signupRoute(req: NextApiRequest, res: NextApiRespo
     }
 
     // validate data
-    const SchemaUser: SignupFormData | false = await userSignupSchema.validate(test).catch(() => false);
+    const SchemaUser: SignupFormData | false = await userSignupSchema.validate(req.body).catch(() => false);
 
     if (SchemaUser === false) {
         // validation failed
@@ -63,6 +64,11 @@ export default async function signupRoute(req: NextApiRequest, res: NextApiRespo
             success: false
         })
         return;
+    }
+
+    // acceptNewsletter
+    if (SchemaUser.acceptNewsletter) {
+        await new NewsletterControl().newRow(SchemaUser.email, SchemaUser.firstName, user);
     }
 
     res.status(200).json({
