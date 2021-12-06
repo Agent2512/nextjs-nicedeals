@@ -21,21 +21,6 @@ export default class UserControl extends BaseControl {
         return compareSync(password, hash);
     }
 
-    public async createJWT(user: Users) {
-        return await new SignJWT({
-            ...user,
-        })
-            .setProtectedHeader({ alg: 'HS512' })
-            .setJti(user.id.toString())
-            .setIssuedAt()
-            .setExpirationTime('2h')
-            .sign(new TextEncoder().encode(process.env.JWT_SECRET || '123456'))
-    }
-
-    public async verifyJWT(token: string) {
-        return await jwtVerify(token, new TextEncoder().encode(process.env.JWT_SECRET || '123456')).catch(() => false) as JWTVerifyResult | false
-    }
-
     public async makeUser(username: string, firstName: string, lastName: string, email: string, password: string) {
         await this.runDB()
 

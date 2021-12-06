@@ -1,8 +1,9 @@
+import { createJWT } from './../../../assets/jwt';
 import UserControl, { userTokenCookieOpts } from './../../../assets/controls/userControl';
 import { NextApiRequest, NextApiResponse } from "next";
 import { LoginFormData } from '../../../component/forms/loginForm';
 import { object, string } from "yup";
-import Cookies, {  } from "cookies";
+import Cookies from "cookies";
 
 
 
@@ -52,7 +53,7 @@ export default async function loginRoute(req: NextApiRequest, res: NextApiRespon
         return;
     }
     // make JSON Web Token
-    const userJWT = await userControl.createJWT(user);
+    const userJWT = await createJWT({user});
     
     // set cookie
     const cookies = new Cookies(req, res)

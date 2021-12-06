@@ -2,6 +2,7 @@ import Cookies from 'cookies';
 import { NextApiRequest, NextApiResponse } from "next";
 import UserControl from '../../../assets/controls/userControl';
 import { Users } from "../../../assets/entities/Users";
+import { verifyJWT } from '../../../assets/jwt';
 
 export interface userRouteRes {
     isLoggedIn: boolean;
@@ -25,7 +26,7 @@ export default async function userRoute(req: NextApiRequest, res: NextApiRespons
         return;
     }
 
-    const user = await new UserControl().verifyJWT(userJWT)
+    const user = await verifyJWT<Users>(userJWT, "user")
 
     if (user == false) {
         res.json({
@@ -33,7 +34,7 @@ export default async function userRoute(req: NextApiRequest, res: NextApiRespons
         });
         return;
     }
-    
+
 
     res.json({
         isLoggedIn: true,
