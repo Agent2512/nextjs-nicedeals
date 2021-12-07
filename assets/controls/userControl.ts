@@ -55,7 +55,14 @@ export default class UserControl extends BaseControl {
             return false
         }
 
+        if (user.login_attempts == 5) {
+            return false
+        }
+
         if (this.validatePassword(password, user.password) == false) {
+            user.login_attempts += 1
+            await user.save()
+
             return false
         }
 

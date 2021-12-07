@@ -1,6 +1,6 @@
 import { useRouter } from "next/dist/client/router";
 import { useForm } from "react-hook-form";
-import { useApi } from "../../hooks/useApi";
+import { useApi, useApi2 } from "../../hooks/useApi";
 import { userLoginRouteRes } from "../../pages/api/user/login";
 
 export interface LoginFormData {
@@ -10,6 +10,7 @@ export interface LoginFormData {
 
 const LoginForm = () => {
     const router = useRouter();
+    const { post } = useApi2("/api/user");
     const { register, handleSubmit, formState: { errors } } = useForm<LoginFormData>({
         mode: "onSubmit",
         reValidateMode: "onSubmit",
@@ -20,13 +21,7 @@ const LoginForm = () => {
     })
 
     const onSubmit = (data: LoginFormData) => {
-        useApi<userLoginRouteRes>("/api/user/login", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json",
-            }
-        }).then((res) => {
+        post<userLoginRouteRes>("/login", data).then((res) => {
             if (res.success) {
                 router.push("/dashboard")
             }
@@ -34,7 +29,7 @@ const LoginForm = () => {
     };
 
     return (
-        <form  onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             {/* email */}
             <div className="form-group">
                 <label htmlFor="email">email</label>

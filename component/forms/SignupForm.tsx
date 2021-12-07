@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { useApi } from "../../hooks/useApi";
+import { useApi, useApi2 } from "../../hooks/useApi";
 import { userSignupRouteRes } from "../../pages/api/user/signup";
 
 export interface SignupFormData {
@@ -17,6 +17,7 @@ export interface SignupFormData {
 
 const SignupForm = () => {
     const router = useRouter();
+    const { post } = useApi2("/api/user");
     const { register, handleSubmit, formState: { errors }, watch } = useForm<SignupFormData>({
         mode: "onSubmit",
         reValidateMode: "onSubmit",
@@ -34,19 +35,12 @@ const SignupForm = () => {
     });
 
     const onSubmit = (data: SignupFormData) => {
-        useApi<userSignupRouteRes>("/api/user/signup", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(res => {
+        post<userSignupRouteRes>("/signup", data).then(res => {
             if (res.success) {
                 router.push("/login");
             }
             else {
                 console.log(res.message);
-                
             }
         })
     }

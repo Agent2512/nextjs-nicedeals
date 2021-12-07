@@ -6,10 +6,10 @@ import { verifyJWT } from '../../../assets/jwt';
 
 export interface userRouteRes {
     isLoggedIn: boolean;
-    user?: Users;
+    user: Users | null;
 }
 
-export default async function userRoute(req: NextApiRequest, res: NextApiResponse) {
+export default async function userRoute(req: NextApiRequest, res: NextApiResponse<userRouteRes>) {
     // most be a get request
     if (req.method !== 'GET') {
         res.status(405).end();
@@ -21,7 +21,8 @@ export default async function userRoute(req: NextApiRequest, res: NextApiRespons
 
     if (userJWT == undefined) {
         res.json({
-            isLoggedIn: false
+            isLoggedIn: false,
+            user: null
         });
         return;
     }
@@ -29,8 +30,14 @@ export default async function userRoute(req: NextApiRequest, res: NextApiRespons
     const user = await verifyJWT<Users>(userJWT, "user")
 
     if (user == false) {
+        cookies.set('userToken', '', {
+            maxAge: 0
+        })
+
+
         res.json({
-            isLoggedIn: false
+            isLoggedIn: false,
+            user: null
         });
         return;
     }

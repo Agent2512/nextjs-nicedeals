@@ -10,27 +10,12 @@ export interface userSignupRouteRes {
 }
 
 export default async function signupRoute(req: NextApiRequest, res: NextApiResponse<userSignupRouteRes>) {
-    // only from signup page
-    if (req.headers.referer === undefined || req.headers.referer.indexOf('/signup') === -1) {
-        res.status(403).end();
-        return;
-    }
-
     // most be a post request
     if (req.method !== 'POST') {
         res.status(405).end();
         return;
     }
 
-    var test = {
-        firstName: 'nklas',
-        lastName: 'gadeberg',
-        acceptNewsletter: "ggg",
-        username: 'Agent2512',
-        email: 'spiler2512@gmail.com',
-        password: '123456789jH!',
-        confirmPassword: '123456789jH!'
-    }
 
     // validate data
     const SchemaUser: SignupFormData | false = await userSignupSchema.validate(req.body).catch(() => false);

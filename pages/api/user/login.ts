@@ -4,6 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { LoginFormData } from '../../../component/forms/loginForm';
 import { object, string } from "yup";
 import Cookies from "cookies";
+import { Users } from '../../../assets/entities/Users';
 
 
 
@@ -13,12 +14,6 @@ export interface userLoginRouteRes {
 }
 
 export default async function loginRoute(req: NextApiRequest, res: NextApiResponse<userLoginRouteRes>) {
-    // only from login page
-    if (req.headers.referer === undefined || req.headers.referer.indexOf('/login') === -1) {
-        res.status(403).end();
-        return;
-    }
-
     // most be a post request
     if (req.method !== 'POST') {
         res.status(405).end();
@@ -32,7 +27,7 @@ export default async function loginRoute(req: NextApiRequest, res: NextApiRespon
         // validation failed
         res.status(400).json({
             message: 'Validation failed',
-            success: false
+            success: false,
         })
         return;
     }
@@ -48,7 +43,7 @@ export default async function loginRoute(req: NextApiRequest, res: NextApiRespon
         // user not found
         res.status(401).json({
             message: 'Incorrect email or password"',
-            success: false
+            success: false,
         })
         return;
     }

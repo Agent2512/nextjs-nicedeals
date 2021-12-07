@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useApi } from "../../hooks/useApi";
+import { useApi, useApi2 } from "../../hooks/useApi";
 import { newsletterAddRouteRes } from "../../pages/api/newsletter/add";
 
 
@@ -12,6 +12,7 @@ export interface NewsletterSubFormData {
 
 const NewsletterSubForm = () => {
     const router = useRouter();
+    const { post } = useApi2("api/newsletter");
     const [show, setShow] = useState(false);
     const { handleSubmit, register, formState: { errors } } = useForm<NewsletterSubFormData>({
         mode: "onSubmit",
@@ -23,13 +24,7 @@ const NewsletterSubForm = () => {
     });
 
     const onSubmit = (data: NewsletterSubFormData) => {
-        useApi<newsletterAddRouteRes>("/api/newsletter/add", {
-            method: "POST",
-            body: JSON.stringify(data),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        }).then(res => {
+        post<newsletterAddRouteRes>("/add", data).then(res => {
             if (res.success == false) {
                 console.log(res.message);
             }
@@ -39,8 +34,7 @@ const NewsletterSubForm = () => {
                     setShow(false);
                 }, 3000);
             }
-        })
-
+        });
 
     }
 
