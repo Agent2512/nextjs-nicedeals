@@ -4,18 +4,18 @@ import { verifyJWT } from '../../assets/jwt';
 
 
 
-export async function middleware(req: NextRequest, ev: NextFetchEvent) {
+export function middleware(req: NextRequest, ev: NextFetchEvent) {
     const userToken = req.cookies.userToken
     
     if(userToken == undefined) {
         return NextResponse.redirect("/login");
     }
 
-    const user = await verifyJWT<Users>(userToken, "user")
-
-    if(user == false) {
-        return NextResponse.redirect("/login");
-    }
+    return verifyJWT<Users>(userToken, "user").then(user => {
+        if (user == false) {
+            return NextResponse.redirect("/login");
+        }
+    })
 }
 
 

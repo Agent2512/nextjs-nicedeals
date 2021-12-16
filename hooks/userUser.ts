@@ -1,34 +1,42 @@
-import { userRouteRes } from './../pages/api/user/index';
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { createContext, useContext } from "react"
 import { Users } from "../assets/entities/Users"
-import { userLoginRouteRes } from "../pages/api/user/login"
-import { useApi, useApi2 } from "./useApi"
+import { newsletterIsUserRouteRes } from "../pages/api/newsletter/isUser"
+import {  useApi2 } from "./useApi"
 
-
+interface IUser extends Users {
+    isNewsSub: boolean;
+}
 
 export const useUser = () => {
-    const router = useRouter()
-    const { get } = useApi2("api/user/")
     const { user, setUser } = useContext(UserContext)
-    const [isLoggedIn, setIsLoggedIn] = useState(user == null ? false : true)
+    
+    const router = useRouter()
+    const { get: userGet } = useApi2("api/user/")
 
     const logout = () => {
-        get("logout")
+        userGet("logout")
         setUser(null)
-        router.reload()
+        router.push("/")
     }
+
+    
+
 
 
     return {
-        user,
-        isLoggedIn,
+        user: user,
         logout,
     }
 }
+
+
+
 
 export const UserContext = createContext<{
     user: Users | null
     setUser: (user: Users | null) => void
 }>({ user: null, setUser: () => { } })
+
+

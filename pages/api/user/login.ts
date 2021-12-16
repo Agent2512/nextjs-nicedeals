@@ -5,6 +5,7 @@ import { LoginFormData } from '../../../component/forms/loginForm';
 import { object, string } from "yup";
 import Cookies from "cookies";
 import { Users } from '../../../assets/entities/Users';
+import NewsletterControl from '../../../assets/controls/newsletterControl';
 
 
 
@@ -47,6 +48,7 @@ export default async function loginRoute(req: NextApiRequest, res: NextApiRespon
         })
         return;
     }
+
     // make JSON Web Token
     const userJWT = await createJWT({user});
     

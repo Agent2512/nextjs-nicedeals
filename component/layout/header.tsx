@@ -1,9 +1,10 @@
 import { Cart as CartIcon, List as ListIcon } from "react-bootstrap-icons"
 import Link from 'next/link'
+import { useUser } from "../../hooks/userUser"
 
 
 const Header = () => {
-
+    const { logout, user } = useUser()
 
     return (
         <header className="sticky-top" >
@@ -18,16 +19,30 @@ const Header = () => {
                     </button>
 
                     <ul className="nav">
-                        <li className="nav-item">
-                            <Link href="/signup">
-                                <a className="nav-link text-white">Opret profil</a>
-                            </Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link href="/login">
-                                <a className="nav-link text-white">Log ind</a>
-                            </Link>
-                        </li>
+                        {user ? <>
+                            <li className="nav-item">
+                                <Link href="/dashboard">
+                                    <a className="nav-link text-white">{user.username}</a>
+                                </Link>
+                            </li>
+
+                            <button className="nav-link text-white border-0 bg-transparent" onClick={logout} >
+                                logout
+                            </button>
+                        </> : <>
+                            <li className="nav-item">
+                                <Link href="/signup">
+                                    <a className="nav-link text-white">Opret profil</a>
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link href="/login">
+                                    <a className="nav-link text-white">Log ind</a>
+                                </Link>
+                            </li>
+                        </>
+                        }
+
                         <li className="nav-item d-flex align-items-center">
                             <a className="nav-link text-white" href="#">
                                 <CartIcon />

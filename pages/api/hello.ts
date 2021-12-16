@@ -12,8 +12,8 @@ export default async function handler(req: req, res: NextApiResponse) {
   const usercontrol = new UserControl()
 
   let user: Users| false
-  user = await usercontrol.makeUser("agent2512", "niklas", "gadeberg", "spiler2512@live.dk", "123456789nG!")
+  // user = await usercontrol.makeUser("agent2512", "niklas", "gadeberg", "spiler2512@live.dk", "123456789nG!")
   // user = await usercontrol.getUser_by_id(1001)
   
-  return res.json({ user })
+  return res.json({  })
 }

@@ -9,12 +9,6 @@ export interface newsletterAddRouteRes {
 }
 
 export default async function add(req: NextApiRequest, res: NextApiResponse<newsletterAddRouteRes>) {
-    // must have referer
-    if (req.headers.referer === undefined) {
-        res.status(403).end();
-        return;
-    }
-
     // must be POST
     if (req.method !== "POST") {
         res.status(405).end();

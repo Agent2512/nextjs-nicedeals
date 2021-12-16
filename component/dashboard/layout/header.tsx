@@ -1,8 +1,9 @@
 import { List, PersonFill, Search } from "react-bootstrap-icons";
+import { useUser } from "../../../hooks/userUser";
 
 
 const Header = () => {
-
+    const { logout } = useUser()
 
     return (
         <nav className="top navbar navbar-expand navbar-dark bg-dark">
@@ -37,7 +38,7 @@ const Header = () => {
                             <hr className="dropdown-divider" />
                         </li>
                         <li>
-                            <a className="dropdown-item" href="http://localhost/code/nicedeals/users/logout">Logout</a>
+                            <button className="dropdown-item" onClick={ logout }>Logout</button>
                         </li>
                     </ul>
                 </li>

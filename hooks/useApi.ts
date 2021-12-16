@@ -17,9 +17,9 @@ const postOptions: RequestInit = {
 }
 
 export const useApi2 = (baseUri: string) => {
-    const get = <T>(path: string) => fetch(baseUri+path).then(res => res.json() as Promise<T>)
+    const get = <T>(path: string = "") => fetch(baseUri + path).then(res => res.json() as Promise<T>)
 
-    const post = <T>(path: string, data: any) => fetch(baseUri+path, {
+    const post = <T>(path: string = "", data: object) => fetch(baseUri + path, {
         ...postOptions,
         body: JSON.stringify(data)
     }).then(res => res.json() as Promise<T>)

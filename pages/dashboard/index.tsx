@@ -1,23 +1,25 @@
-import { useEffect } from "react";
-import { useState } from "react";
 import DashboardLayout from "../../component/dashboard/layout/layout";
-import { useApi } from "../../hooks/useApi";
-import { useUser } from "../../hooks/userUser";
-import { userRouteRes } from "../api/user";
+import { UserInfo } from "../../component/dashboard/userInfo";
 
 
 const Dashboard = () => {
-    const { user, isLoggedIn, logout } = useUser()
-
-
     return (
         <DashboardLayout>
-            <main className="main">
-                <p>test</p>
-                <pre>
-                    {JSON.stringify({ user, isLoggedIn }, null, 2)}
-                </pre>
-                <button onClick={logout} className="btn btn-primary" >logout</button>
+            <main className="main container-fluid px-4">
+                <h1 className="mt-3">Dashboard</h1>
+                <div className="row">
+                    <div className="col-xl-6">
+                        <UserInfo noButtons />
+
+
+
+
+
+                    </div>
+                    <div className="col-xl-6">
+
+                    </div>
+                </div>
             </main>
         </DashboardLayout>
     )
